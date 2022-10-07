@@ -1,0 +1,145 @@
+//no usa upc.h
+#include <iostream>
+#include <ctype.h>
+
+
+
+using namespace std;
+
+int main() {
+	char material;
+	char tipo_s;
+	int hora_r;
+	int monto , cont_veces_hora=0;
+	int contador_ma = 0;
+	float porc_manana;
+	int suma_MV=0;
+	int contadorAMV=0;
+	float promedio =0;
+	int contador_l = 0;
+	int contador_a = 0;
+	int contador_m = 0;
+	int prestamo_l = 0;
+	int monto_mayor =0;
+
+
+	do{
+	
+	cout << "Ingrese los siguientes datos: " << endl;
+		do
+		{
+		cout << "Tipo de material: (L:Libro; A: Articulo; M: Monografía) :"; cin >> material;
+		material = toupper(material);
+		} while (material !='L'&& material !='A' && material != 'M' && material !='X');
+
+		if (material == 'L') {
+			contador_l++;
+		}
+		if (material == 'A'){
+			contador_a++;
+		}
+		if (material == 'M') {
+			contador_m++;
+		}
+
+		switch (material)
+		{
+		case 'X':
+			cout << endl;
+		cout << "RESULTADOS:" << endl;
+			cout << "Porcentaje de registros que fueron ingresados durante la mañana:  "<<porc_manana << endl;
+			cout << "Monto promedio de venta de los artículos o monografías : " << promedio<<endl;
+			cout << "El material o materiales que tienen la mayor frecuencia:  ";
+		
+			if (contador_l > contador_a && contador_l > contador_m) {
+				cout << "Libro"<<endl;
+
+			}
+			else {
+				if (contador_a > contador_l && contador_a > contador_m) {
+					cout << "Articulo" << endl;
+				}
+				else {
+					if (contador_m > contador_a && contador_m > contador_l) {
+						cout << "Monografia" << endl;
+					}
+				}
+			}
+
+			if (contador_l == contador_a && contador_l == contador_m) {
+				cout << endl;
+				cout << "Libro " <<endl;
+				cout << "Articulo " << endl;
+				cout << "monografia" << endl;
+
+			}
+			
+
+
+				cout <<"contador a: " <<contador_a << " contador m:" << contador_m << " contador l:" << contador_l << endl;
+
+			cout << "El mayor monto que se paga por el prestamo de un libro :";
+			if (monto_mayor == 0) {
+				cout << "No hubo"<<endl;
+			}
+			else {
+				if(monto_mayor>0)
+				cout << monto_mayor;
+			}
+			break;
+
+		default:
+		do
+		{
+		cout << "Ingrese la hora de registro: (Numero entero positivo del 0 y 23) : "; cin >> hora_r;
+		} while (hora_r<0 && hora_r>23);
+		if (hora_r > 6 && hora_r <12) {
+			contador_ma++;
+		 }
+		cont_veces_hora++;
+
+		porc_manana = ((contador_ma * 100 )/ cont_veces_hora);
+			
+		do
+		{
+		cout << "Ingrese el tipo del servicio (P: Prestamo; V: Venta ) "; cin >> tipo_s;
+		tipo_s= toupper(tipo_s);
+		} while (tipo_s != 'P' && tipo_s != 'V');
+	
+		do {
+
+		cout << "Ingrese el monto del servicio (Valor real mayor a cero) "; cin >> monto;
+		cout << endl;
+		} while (monto < 0);
+		cout << endl;
+		if (material == 'A' || material == 'M' && tipo_s == 'V') {
+					contadorAMV++;
+				suma_MV = suma_MV + monto;
+				promedio = suma_MV / contadorAMV;
+			}	
+
+		
+		
+		if (material=='L' && tipo_s =='P'){
+			prestamo_l = prestamo_l + monto;
+			}
+		monto_mayor = (monto_mayor < prestamo_l) * prestamo_l + (monto_mayor > prestamo_l) * monto_mayor;
+
+
+		}
+
+		
+		
+
+
+
+
+
+		
+
+
+	} while (material != 'X');
+
+	
+
+}
